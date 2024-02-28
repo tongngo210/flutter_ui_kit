@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum IconSide { left, right }
-
 class TextBox extends StatelessWidget {
   final String text;
   final TextStyle? textStyle;
@@ -9,10 +7,12 @@ class TextBox extends StatelessWidget {
   final double width;
   final EdgeInsets margin;
   final EdgeInsets padding;
-  final Widget? icon;
-  final double? iconSize;
-  final IconSide iconSide;
-  final double spacing;
+  final Widget? leftIcon;
+  final double? leftIconSize;
+  final double leftIconSpacing;
+  final Widget? rightIcon;
+  final double? rightIconSize;
+  final double rightIconSpacing;
   final BoxDecoration? boxDecoration;
 
   const TextBox({
@@ -23,10 +23,12 @@ class TextBox extends StatelessWidget {
     this.width = double.infinity,
     this.margin = const EdgeInsets.all(5),
     this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    this.icon,
-    this.iconSize,
-    this.iconSide = IconSide.left,
-    this.spacing = 0,
+    this.leftIcon,
+    this.leftIconSize,
+    this.leftIconSpacing = 0,
+    this.rightIcon,
+    this.rightIconSize,
+    this.rightIconSpacing = 0,
     this.boxDecoration,
   });
 
@@ -43,15 +45,13 @@ class TextBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
       child: Row(
-        textDirection:
-            iconSide == IconSide.left ? TextDirection.ltr : TextDirection.rtl,
         children: [
-          if (icon != null)
+          if (leftIcon != null)
             Container(
-              width: iconSize,
-              height: iconSize,
-              margin: EdgeInsets.only(right: spacing),
-              child: icon,
+              width: leftIconSize,
+              height: leftIconSize,
+              margin: EdgeInsets.only(right: leftIconSpacing),
+              child: leftIcon,
             ),
           Expanded(
             child: Text(
@@ -66,6 +66,13 @@ class TextBox extends StatelessWidget {
                   ),
             ),
           ),
+          if (rightIcon != null)
+            Container(
+              width: rightIconSize,
+              height: rightIconSize,
+              margin: EdgeInsets.only(left: rightIconSpacing),
+              child: rightIcon,
+            ),
         ],
       ),
     );
